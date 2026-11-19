@@ -38,7 +38,7 @@
 .\run_local.ps1 run --cloud "../project/data/Point_Cloud_Data.zip::M04.pcd" --unit m --walls all --out outputs/my_M04
 ```
 
-也可以用 `--walls W01,W03` 指定多个候选。程序保留所有满足几何条件的候选，另外把支持点最多的四面标为 `dominant=true`；不强行把复杂房型改成四面墙。找不到可靠地面或没有有效墙面时明确报错。
+也可以用 `--walls 'W01,W03'` 指定多个候选。程序保留所有满足几何条件的候选，另外把支持点最多的四面标为 `dominant=true`；不强行把复杂房型改成四面墙。找不到可靠地面或没有有效墙面时明确报错。
 
 ## 可选：只测墙面中间一块
 
@@ -127,4 +127,20 @@ python -m venv .venv
 
 基础安装不需要 PyTorch、训练权重或运行时网络访问。离线网页不依赖 CDN。`scripts/check_viewer.cjs` 是可选浏览器 QA，需 Playwright 和 Edge，不属于测量依赖。
 
-详见 [方法和限制](docs/method.md)、[实验记录](docs/experiments.md)、[复用来源](PROVENANCE.md)。原始课程资料、依赖和完整输出不进入 Git；`results/` 仅保存小型数值记录。
+详见 [方法和限制](docs/method.md)、[实验记录](docs/experiments.md)、[复用来源](PROVENANCE.md)。原始课程资料、依赖和点云输出不进入 Git；`results/` 保存可审计数值记录。
+
+## 正式准确性评测
+
+[完整评测方案及实验报告](docs/墙面选择与RMS准确性_评测方案及实验报告.docx)和[评测协议](docs/accuracy_protocol.md)区分墙实例识别、点集选择、RMS 误差、失败率和实体真值。已完成 20 个随机房间 × 15 条件，共 300 场景；两种选点模式及正确语义标签对照产生 720 条评价记录。原始逐例统计与逐墙记录保存在 `results/accuracy_v1/`，不包含课程原始点云。
+
+```powershell
+.\python_local.ps1 -m evaluation.runner --out outputs/new_study
+.\python_local.ps1 -m evaluation.summarize outputs/new_study
+.\python_local.ps1 -m evaluation.audit_records results/accuracy_v1
+.\python_local.ps1 -m evaluation.real_stability --archive '../project/data/Point_Cloud_Data.zip' --out outputs/new_stability
+.\python_local.ps1 -m evaluation.manual_reference --help
+```
+
+正式运行保持生产算法默认参数。部分条件运行可加 `--count 2 --conditions 'clean,bulge60,near_clutter'`；PowerShell 中逗号分隔的参数请使用引号。`manual_reference` 接受独立审定的原始点序实例标签和元数据，模板在 `evaluation/annotation_metadata_template.json`；当前未获得真实房间的盲法审定标签。合成真值、真实数据参数稳定性、固定点集数值一致性均不能替代独立实体精度验证。
+
+Word 报告构建入口为 `evaluation/build_report.py`，额外需要 `python-docx`；它读取固定 `outputs/accuracy_study_v1` 和 `outputs/accuracy_real_stability_v1` 中的已完成记录，不负责重新运行实验。

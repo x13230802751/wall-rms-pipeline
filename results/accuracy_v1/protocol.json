@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "source_commit": "d3dbe23",
+  "source_hashes": {
+    "room_walls/__init__.py": "be7b6599ed211491379d35a019bfa90daef7a1d9ffe52f159bd5a0a37da6036b",
+    "room_walls/__main__.py": "ceb682777d5bb658fd3ccd3a45845c0f6339eacec272ff794ea972c628ca00d7",
+    "room_walls/artifacts.py": "f76ce435bb9dffe17e998dd0da7601914d5412c27396483104b4d1186bd50a2e",
+    "room_walls/config.py": "c3599f6b65a17be6b13eb68136a7c6b027a8788720b495611f2b5b5593501fd0",
+    "room_walls/discovery.py": "522f813625af893d217cb5c230d9a7a089b12ba310b3a433484a73fb2dc0dde6",
+    "room_walls/measurement.py": "0abc98fa29d220401c977545c934414ebfbb90175f6b736ef5a0a62f4114d7ff",
+    "room_walls/planes.py": "eaa20c604b8c5b3e9c6b4e110a36d384b5efc9a6ee119e0007756659326f7217",
+    "room_walls/vendor/__init__.py": "706c4f5d6e02a686d6bb03e292739b0a9420e853cc4c1c60112d97aa4d368c4b",
+    "room_walls/vendor/geometry.py": "8592a0d11a8b2f257151fa3e2d080d7344e9c8ca10bdca62ea03d1e3ced882c0",
+    "room_walls/vendor/io.py": "16444fb11535d31c9522791c2c020393c3f9a46bb966fe271c9e21c5303d237c",
+    "room_walls/visuals.py": "9c2132ba6f90db3c8cf3240f567f4bcbd72673824b07a7e01fb75afe93fbd439"
+  },
+  "evaluation_hashes": {
+    "evaluation/__init__.py": "053aca071349ed1b3147e8534299678bff55b61efe86c62e249f50ac7b074007",
+    "evaluation/metrics.py": "5dc17e3951d2a7f2d153784a30711bc0a2ac34e2c94d4f8d57d96a446ddfd81b",
+    "evaluation/runner.py": "6643aeb4021fca7116c71223f2e6b8756530fe5c51d2f1276d088cae97cd29c0",
+    "evaluation/scenes.py": "663fe471eb71fa417cbc7c2b743fc7d118ee9d8918b05aa0da17c7ba8874eeb4"
+  },
+  "config": {
+    "up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "voxel_mm": 30.0,
+    "ransac_mm": 12.0,
+    "ransac_trials": 512,
+    "ransac_sample": 12000,
+    "max_planes": 28,
+    "min_plane_points": 120,
+    "radius_mm": 95.0,
+    "radius_min_neighbors": 4,
+    "cluster_eps_mm": 95.0,
+    "cluster_min_points": 4,
+    "min_wall_width_m": 0.8,
+    "min_wall_height_m": 1.2,
+    "min_wall_area_m2": 1.0,
+    "floor_touch_mm": 250.0,
+    "max_wall_tilt_deg": 15.0,
+    "max_floor_tilt_deg": 15.0,
+    "recovery_mm": 50.0,
+    "footprint_mm": 100.0,
+    "coverage_grid_mm": 100.0,
+    "seed": 7023,
+    "wall_label": 2,
+    "floor_label": 1,
+    "ceiling_label": 0
+  },
+  "seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "conditions": [
+    "clean",
+    "noise_05",
+    "noise_2",
+    "sparse25",
+    "sparse10",
+    "occlusion_center",
+    "bulge25",
+    "bulge60",
+    "recess25",
+    "near_clutter",
+    "cabinet_floor",
+    "density_gradient",
+    "mixed",
+    "split_wall",
+    "l_room"
+  ],
+  "oracle_conditions": [
+    "near_clutter",
+    "cabinet_floor",
+    "mixed"
+  ],
+  "matching_thresholds": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "error_thresholds_mm": [
+    0.2,
+    0.5,
+    1.0
+  ],
+  "grid_mm": 100,
+  "bootstrap_unit": "synthetic_room_seed",
+  "bootstrap_replicates": 2000,
+  "note": "Synthetic random rooms, not independent physical buildings; external semantics are oracle labels, not learned predictions"
+}

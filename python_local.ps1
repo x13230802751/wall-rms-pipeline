@@ -1,4 +1,4 @@
-param([Parameter(ValueFromRemainingArguments=$true)][string[]]$PythonArgs)
+$PythonArgs = @($args)
 $ErrorActionPreference = 'Stop'
 $taskRoot = $PSScriptRoot
 $taskVenvPython = Join-Path $taskRoot '.venv\Scripts\python.exe'
